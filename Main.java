@@ -33,13 +33,14 @@ public class Main {
 
         //Calculates monthly payment amount
         double monthlyPayment = (loanAmount * monthlyInterestRate * Math.pow(monthlyInterestRate + 1, timesOfPayments)) / (Math.pow(monthlyInterestRate + 1, timesOfPayments) - 1);
-               monthlyPayment = (loanAmount * i *                   Math.pow(i                   + 1, n              )) / (Math.pow(i                   + 1, n              ) - 1);
 
         // Outputs monthly payment & total payment
         System.out.printf("\nMonthly Payment: %.2f",monthlyPayment);
         System.out.printf("\nTotal Payment: %.2f\n\n", (monthlyPayment * timesOfPayments));
 
-        // Sets the balance to the initial amount
+        // Sets the necessary variables
+        double interest;
+        double principal;
         double balance = loanAmount;
 
         // Outputs the header line
@@ -47,11 +48,11 @@ public class Main {
 
         // Loop for each payment
         for (int i=1; i<=timesOfPayments; i++) {
-            System.out.printf("%-13d %-13.2f %-13.2f %-13.2f\n",
-                    i,
-                    balance * monthlyInterestRate,
-                    monthlyPayment - (balance * monthlyInterestRate),
-                    balance -= monthlyPayment);
+            interest = monthlyInterestRate * balance;
+            principal = monthlyPayment - interest;
+            balance -= principal;
+
+            System.out.printf("%-13d %-13.2f %-13.2f %-13.2f\n", i, interest, principal, balance);
         }
     }
 }
